@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "pvptoggle",
+  "version": "${version}",
+
+  "name": "pvptoggle",
+  "description": "",
+  "authors": [],
+  "contact": {},
+
+  "license": "All-Rights-Reserved",
+  "icon": "assets/pvptoggle/icon.png",
+
+  "environment": "server",
+  "entrypoints": {
+    "main": ["com.byfr0n.pvptoggle.PvpToggle"]
+  },
+
+  "mixins": [
+    "pvptoggle.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
