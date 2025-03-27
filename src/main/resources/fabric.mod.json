@@ -4,16 +4,18 @@
   "version": "${version}",
 
   "name": "pvptoggle",
-  "description": "",
+  "description": "toggles pvp using /pvp",
   "authors": [],
   "contact": {},
 
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/pvptoggle/icon.png",
 
   "environment": "server",
   "entrypoints": {
-    "main": ["com.byfr0n.pvptoggle.PvpToggle"]
+    "main": [
+      "byfr0n.pvptoggle.PvpToggle"
+    ]
   },
 
   "mixins": [
