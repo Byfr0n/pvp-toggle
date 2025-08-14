@@ -1,4 +1,4 @@
-package byfr0n.pvptoggle.manager;
+        package byfr0n.pvptoggle.manager;
 
 import byfr0n.pvptoggle.config.Config;
 import com.google.gson.Gson;
@@ -18,19 +18,21 @@ public class ConfigManager {
         File configFile = CONFIG_PATH.toFile();
 
         if (!configFile.exists()) {
+            System.out.println("Config file not found at: " + CONFIG_PATH.toAbsolutePath() + ", creating default config.");
             config = new Config();
             saveConfig();
         } else {
             try (Reader reader = Files.newBufferedReader(CONFIG_PATH)) {
-                Config newConfig = gson.fromJson(reader, Config.class);
-                if (newConfig != null) {
-                    config = newConfig;
-                } else {
-                    System.err.println("Parsed PvP Toggle config was null, keeping previous config.");
+                config = gson.fromJson(reader, Config.class);
+                if (config == null) {
+                    System.err.println("Parsed config was null, using default config.");
+                    config = new Config();
+                    saveConfig();
                 }
             } catch (Exception e) {
-                System.err.println("Failed to load PvP Toggle config due to invalid JSON: " + e.getMessage());
+                System.err.println("Failed to load PvP Toggle config due to: " + e.getMessage());
                 if (config == null) {
+                    System.out.println("Creating default config due to load failure.");
                     config = new Config();
                     saveConfig();
                 }
@@ -44,6 +46,7 @@ public class ConfigManager {
             Files.createDirectories(CONFIG_PATH.getParent());
             try (Writer writer = Files.newBufferedWriter(CONFIG_PATH)) {
                 gson.toJson(config, writer);
+                System.out.println("Saved config to: " + CONFIG_PATH.toAbsolutePath());
             }
         } catch (IOException e) {
             System.err.println("Failed to save PvP Toggle config: " + e.getMessage());
@@ -51,6 +54,10 @@ public class ConfigManager {
     }
 
     public static Config getConfig() {
+        if (config == null) {
+            System.out.println("Config is null, loading default config.");
+            loadConfig();
+        }
         return config;
     }
 
@@ -69,8 +76,8 @@ public class ConfigManager {
 
                         Path changedFile = (Path) event.context();
                         if (changedFile.equals(CONFIG_PATH.getFileName())) {
+                            System.out.println("Config file changed, reloading...");
                             loadConfig();
-                            System.out.println("PvP Toggle config reloaded due to file change.");
                         }
                     }
                     boolean valid = key.reset();

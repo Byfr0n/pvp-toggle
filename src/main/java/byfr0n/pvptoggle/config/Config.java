@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
-    private final int minimumPermissionLevel = 2;
-    private final List<String> blacklistedPlayers = new ArrayList<>();
-    private final boolean defaultPvpState = true;
-    private final int commandCooldownSeconds = 5;
+    private int minimumPermissionLevel = 2;
+    private List<String> blacklistedPlayers = new ArrayList<>();
+    private boolean defaultPvpState = true;
+    private int commandCooldownSeconds = 5;
+
+    public Config() {
+    }
 
     public int getMinimumPermissionLevel() {
         return minimumPermissionLevel;
