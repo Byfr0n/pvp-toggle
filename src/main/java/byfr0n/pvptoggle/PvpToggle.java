@@ -26,7 +26,7 @@ public class PvpToggle implements ModInitializer {
                             .requires(source -> {
                                 ServerPlayerEntity player = source.getPlayer();
                                 if (player == null) return false;
-                                if (source.getServer().getPermissionLevel(player.getGameProfile()) < ConfigManager.getConfig().getMinimumPermissionLevel()) {
+                                if (source.getServer().getPermissionLevel(player.getGameProfile()) <= ConfigManager.getConfig().getMinimumPermissionLevel() - 1) {
                                     return false;
                                 }
                                 if (ConfigManager.getConfig().getBlacklistedPlayers().contains(player.getUuid().toString())) {
